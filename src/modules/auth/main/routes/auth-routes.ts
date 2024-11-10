@@ -1,5 +1,4 @@
 import { type Router } from "express";
-import { auth } from "../middlewares";
 import { adaptRoute } from "../../../common";
 import { signInControllerFactory } from "../factories/controllers/sign-in-controller-factory";
 import { signUpControllerFactory } from "../factories/controllers/sign-up-controller-factory";

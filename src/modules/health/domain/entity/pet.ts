@@ -5,7 +5,7 @@ type CreateProps = {
   name: string;
   specie: string;
   breed: string;
-  ownerId: string;
+  guardianId: string;
 };
 
 type BuildProps = CreateProps & {
@@ -18,7 +18,7 @@ export class Pet {
   private name: string;
   private specie: string;
   private breed: string;
-  private ownerId: string;
+  private guardianId: string;
 
   private constructor(props: BuildProps) {
     this.id = props.id;
@@ -26,7 +26,7 @@ export class Pet {
     this.breed = props.breed;
     this.name = props.name;
     this.specie = props.specie;
-    this.ownerId = props.ownerId;
+    this.guardianId = props.guardianId;
   }
 
   static create(props: CreateProps) {

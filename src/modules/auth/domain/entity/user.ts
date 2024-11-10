@@ -6,12 +6,11 @@ type CreateProps = {
   name: string;
   email: string;
   rawPassword?: string;
-  role: string;
 };
 
 type BuildProps = Omit<CreateProps, "rawPassword"> & {
   id: string;
-  password?: string;
+  hashPassword?: string;
   salt?: string;
 };
 
@@ -43,6 +42,16 @@ export class User {
     });
   }
 
+  static build(props: BuildProps) {
+    return new User({
+      ...props,
+      password:
+        props.hashPassword && props.salt
+          ? Password.build({ hash: props.hashPassword, salt: props.salt })
+          : undefined,
+    });
+  }
+
   getId(): string {
     return this.id;
   }
@@ -55,7 +64,15 @@ export class User {
     return this.name;
   }
 
-  getPassword() {
-    return this.password;
+  getPasswordHash() {
+    return this.password?.getHash();
+  }
+
+  getPasswordSalt() {
+    return this.password?.getSalt();
+  }
+
+  isPasswordValid(password: string) {
+    return this.password?.valid(password);
   }
 }

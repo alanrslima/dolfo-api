@@ -15,7 +15,6 @@ it("should not make signin if the password is wrong", async () => {
   const user = User.create({
     email: "john@email.com",
     name: "John Doe",
-    role: "user",
     rawPassword: "12345678",
   });
   const userMemoryRepository = new UserMemoryRepository([user]);
@@ -29,7 +28,6 @@ it("should make signin", async () => {
   const user = User.create({
     email: "john@email.com",
     name: "John Doe",
-    role: "user",
     rawPassword: "12345678",
   });
   const userMemoryRepository = new UserMemoryRepository([user]);

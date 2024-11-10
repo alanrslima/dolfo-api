@@ -8,8 +8,9 @@ import { env } from "../../config";
 
 class MysqlDatabase {
   private accessOptions: ConnectionOptions;
-  // private connecxtion: Connection;
+  private connection?: Connection;
   private pool: Pool;
+  private static instance: MysqlDatabase;
 
   constructor() {
     this.accessOptions = {
@@ -22,16 +23,22 @@ class MysqlDatabase {
     this.pool = mysql.createPool(this.accessOptions);
   }
 
-  // async connect() {
-  // this.connection = await mysql.createConnection(this.accessOptions);
-  // this.pool = mysql.createPool(this.accessOptions);
-  // }
+  public static getInstance(): MysqlDatabase {
+    if (!MysqlDatabase.instance) {
+      MysqlDatabase.instance = new MysqlDatabase();
+    }
+    return MysqlDatabase.instance;
+  }
 
-  // async disconnect() {
-  //   if (this.connection) {
-  //     this.connection.destroy();
-  //   }
-  // }
+  async connect() {
+    this.connection = await mysql.createConnection(this.accessOptions);
+  }
+
+  async disconnect() {
+    if (this.connection) {
+      this.connection.destroy();
+    }
+  }
 
   async makeTransaction(
     fn: (connection: mysql.PoolConnection) => Promise<void>
@@ -48,17 +55,13 @@ class MysqlDatabase {
     }
   }
 
-  async query(
-    sql: string,
-    values?: { [key: string]: any } | any[],
-    props?: Omit<QueryOptions, "sql" | "values">
-  ) {
+  async query(props: QueryOptions) {
     const connection = await this.pool.getConnection();
-    const response = await connection.query({ sql, values, ...props });
+    const [response] = await connection.query(props);
+    connection.release();
     this.pool.releaseConnection(connection);
-    return response;
+    return response as any[];
   }
 }
 
-const mysqlDatabase = new MysqlDatabase();
-export { mysqlDatabase };
+export default MysqlDatabase.getInstance();

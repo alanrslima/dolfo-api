@@ -8,7 +8,7 @@ it("should create a new pet", async () => {
     birthday: new Date(2020, 10, 10),
     breed: "golden",
     name: "Spaike",
-    ownerId: "123",
+    guardianId: "123",
     specie: "Dog",
   });
   expect(petMemoryRepository.getData()).toHaveLength(1);

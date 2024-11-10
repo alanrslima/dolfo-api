@@ -13,7 +13,6 @@ export class SignUpUseCase implements UseCase<Input, Output> {
       name: input.name,
       email: input.email,
       rawPassword: input.password,
-      role: "user",
     });
     await this.userRepository.create(user);
   }

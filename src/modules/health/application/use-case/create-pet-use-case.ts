@@ -16,7 +16,7 @@ type Input = {
   name: string;
   specie: string;
   breed: string;
-  ownerId: string;
+  guardianId: string;
 };
 
 type Output = void;

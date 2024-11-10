@@ -13,7 +13,7 @@ type CreateWithPasswordProps = CreateWithoutPasswordProps & {
 
 export class UserSession extends Session {
   static createWithPassword(props: CreateWithPasswordProps) {
-    const isValid = props.user.getPassword()?.valid(props.rawPassword);
+    const isValid = props.user.isPasswordValid(props.rawPassword);
     if (!isValid) {
       throw new InvalidCredentialsError();
     }

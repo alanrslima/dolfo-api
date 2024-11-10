@@ -21,7 +21,6 @@ it("should not make sign up if email already exists", async () => {
   const user = User.create({
     email: "john@email.com",
     name: "John Doe",
-    role: "user",
     rawPassword: "12345678",
   });
   const userMemoryRepository = new UserMemoryRepository([user]);
