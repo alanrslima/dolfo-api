@@ -2,7 +2,7 @@ import { UseCase } from "../../../common";
 import { Pet } from "../../domain/entity/pet";
 import { PetRepository } from "../contract/repository/pet-repository";
 
-export class CreatePetUseCase implements UseCase<Input, Output> {
+export class AddPetUseCase implements UseCase<Input, Output> {
   constructor(private readonly petRepository: PetRepository) {}
 
   async execute(input: Input): Promise<void> {

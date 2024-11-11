@@ -36,16 +36,19 @@ export class AuthMiddleware implements Middleware {
     try {
       const [, token] = authorization.split(" ");
       this.decrypt(token);
-      const userId = this.decode(token);
-      const user = await this.userRepository.getById(userId);
+      const decodedToken = this.decode(token);
+      const { clientId } = JSON.parse(decodedToken);
+      const user = await this.userRepository.getById(clientId);
       // const session = await this.sessionRepository.getByToken(token);
       return ok({
         session: {
+          user: user.serialize(),
           clientId: user.getId(),
           clientName: user.getName(),
         },
       });
     } catch (error) {
+      console.error(error);
       throw new NotAuthorizedError();
     }
   }

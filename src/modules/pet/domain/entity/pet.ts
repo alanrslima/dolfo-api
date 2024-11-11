@@ -33,7 +33,27 @@ export class Pet {
     return new Pet({ id: new Id().getValue(), ...props });
   }
 
+  getId() {
+    return this.id;
+  }
+
+  getBreed() {
+    return this.breed;
+  }
+
+  getSpecie() {
+    return this.specie;
+  }
+
+  getBirthday() {
+    return this.birthday;
+  }
+
   getName() {
     return this.name;
+  }
+
+  getGuardianId() {
+    return this.guardianId;
   }
 }

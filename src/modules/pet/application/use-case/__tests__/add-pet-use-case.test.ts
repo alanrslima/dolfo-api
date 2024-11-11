@@ -1,10 +1,10 @@
 import { PetMemoryRepository } from "../../../infra/repository/memory/pet-memory-repository";
-import { CreatePetUseCase } from "../create-pet-use-case";
+import { AddPetUseCase } from "../add-pet-use-case";
 
 it("should create a new pet", async () => {
   const petMemoryRepository = new PetMemoryRepository();
-  const createPetUseCase = new CreatePetUseCase(petMemoryRepository);
-  await createPetUseCase.execute({
+  const addPetUseCase = new AddPetUseCase(petMemoryRepository);
+  await addPetUseCase.execute({
     birthday: new Date(2020, 10, 10),
     breed: "golden",
     name: "Spaike",

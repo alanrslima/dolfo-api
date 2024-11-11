@@ -11,6 +11,7 @@ export const adaptRoute = (controller: Controller) => {
       file: req.file,
       files: req.files,
       user: req?.user,
+      session: req?.session,
     };
     try {
       const httpResponse = await controller.handle(request);

@@ -75,4 +75,12 @@ export class User {
   isPasswordValid(password: string) {
     return this.password?.valid(password);
   }
+
+  serialize() {
+    return {
+      id: this.id,
+      name: this.name,
+      email: this.email.getValue(),
+    };
+  }
 }
